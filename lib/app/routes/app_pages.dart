@@ -4,7 +4,7 @@ import 'package:wyy_flutter/app/routes/app_routes.dart';
 import 'package:wyy_flutter/modules/splash/splash_binding.dart';
 import 'package:wyy_flutter/modules/splash/splash_view.dart';
 
-import 'package:wyy_flutter/modules/home/home_page.dart';
+import 'package:wyy_flutter/modules/home/home_view.dart';
 import 'package:wyy_flutter/modules/home/home_bindings.dart';
 
 class Routes {
@@ -18,7 +18,7 @@ class Routes {
     // 首页
     GetPage(
       name: AppRoutes.HOME,
-      page: ()=> const HomePage(),
+      page: ()=> const HomeView(),
       binding: HomeBindings(),
     ),
   ];

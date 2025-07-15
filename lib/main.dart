@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wyy_flutter/app/routes/app_pages.dart';
+import 'package:wyy_flutter/app/routes/app_route_observer.dart';
 import 'package:wyy_flutter/app/routes/app_routes.dart';
 
 import 'app/app.dart';
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
           initialRoute: AppRoutes.SPLASH,
           initialBinding: BindingsBuilder(() {}), // 初始化全局控制器
           getPages: Routes.getPages, // 路由配置
+          navigatorObservers: [AppRouteObserver().routeObserver,routeObserver], // 路由观察器
           builder: (context, child) {
             return Stack(
               children: [

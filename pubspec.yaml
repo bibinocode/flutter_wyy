@@ -37,9 +37,12 @@ dependencies:
   flutter_svg: ^2.2.0
   # 持久化存储
   shared_preferences: ^2.5.3
+  # 让 Flutter 应用能够调用 Android 系统的 Intent
+  flutter_displaymode: ^0.6.0
   # 下面这行会为你的应用添加 Cupertino Icons 字体。
   # 用于 iOS 风格图标，可通过 CupertinoIcons 类使用。
   cupertino_icons: ^1.0.8
+  android_intent_plus: ^5.3.0
 
 dev_dependencies:
   flutter_test:
