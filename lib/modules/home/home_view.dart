@@ -5,6 +5,7 @@ import 'package:android_intent_plus/android_intent.dart';
 import 'package:wyy_flutter/app/routes/app_route_observer.dart';
 import 'package:wyy_flutter/core/utils/adapt.dart';
 import 'package:wyy_flutter/core/utils/common_util.dart';
+import 'package:wyy_flutter/modules/home/widgets/home_bottom.dart';
 import './home_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -67,6 +68,7 @@ class _HomeViewState extends State<HomeView>
           extendBodyBehindAppBar: true, // 让 AppBar 不占用空间,因为 我们用定位来实现
           resizeToAvoidBottomInset: false, // 防止身体内部的小部件被键盘遮盖。也就是关闭后，页面会自动上移
           extendBody: true, // 让 body 可以延伸到 AppBar 下面
+          bottomNavigationBar: HomeBottom(),
           body: Stack(
             // Stack 相当于一个容器，可以包含多个子组件，子组件可以重叠，相当于 css中的 position: relative;
             children: [

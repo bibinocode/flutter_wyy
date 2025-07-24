@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
       splitScreenMode: true, // 是否支持分屏
       minTextAdapt: true, // 是否根据最小宽度适配文字
-      designSize: const Size(375, 812), // 设计稿尺寸
+      designSize: const Size(414, 812), // 设计稿尺寸
       builder: (context, child) {
         // 响应式获取
         return GetMaterialApp(
@@ -30,7 +30,10 @@ class MainApp extends StatelessWidget {
           initialRoute: AppRoutes.SPLASH,
           initialBinding: BindingsBuilder(() {}), // 初始化全局控制器
           getPages: Routes.getPages, // 路由配置
-          navigatorObservers: [AppRouteObserver().routeObserver,routeObserver], // 路由观察器
+          navigatorObservers: [
+            AppRouteObserver().routeObserver,
+            routeObserver,
+          ], // 路由观察器
           builder: (context, child) {
             return Stack(
               children: [

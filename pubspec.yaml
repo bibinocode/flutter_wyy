@@ -1,7 +1,7 @@
 name: wyy_flutter # 项目包名，导包时使用
 description: "A new Flutter project."
 # 以下这行可以防止该包被意外发布到 pub.dev（使用 `flutter pub publish`）。对于私有包推荐这样做。
-publish_to: 'none' # 如果你希望发布到 pub.dev，请移除此行
+publish_to: "none" # 如果你希望发布到 pub.dev，请移除此行
 # 下面定义了应用的版本号和构建号。
 # 版本号由三个点分隔的数字组成，如 1.2.43
 # 后面可以加上可选的构建号，用 + 分隔。
@@ -42,7 +42,16 @@ dependencies:
   # 下面这行会为你的应用添加 Cupertino Icons 字体。
   # 用于 iOS 风格图标，可通过 CupertinoIcons 类使用。
   cupertino_icons: ^1.0.8
+  # 安卓 intent 库 做一些安卓原生 API 调用
   android_intent_plus: ^5.3.0
+  # dio 的 cookie 管理器 做 cookie 管理
+  dio_cookie_manager: ^3.2.0
+  # 用于在 flutter 文件系统中 中查找常用位置
+  path_provider: ^2.1.5
+  # Pretty Dio logger 是一个 Dio 拦截器，以美观且易于阅读的格式记录网络请求
+  pretty_dio_logger: ^1.4.0
+  # dio请求缓存拦截器
+  dio_cache_interceptor: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +71,6 @@ dev_dependencies:
 
 # 以下部分是 Flutter 包专用配置。
 flutter:
-
   # 下面这行确保 Material Icons 字体会被包含进你的应用，
   # 这样你就可以在 material Icons 类中使用这些图标。
   uses-material-design: true
@@ -73,7 +81,6 @@ flutter:
     - assets/images/
     - assets/anim/loading/
 
-
   # 一个图片资源可以指向一个或多个分辨率特定的“变体”，详见
   # https://flutter.dev/to/resolution-aware-images
 
@@ -82,23 +89,23 @@ flutter:
 
   # 若要为应用添加自定义字体，在此 flutter 部分添加 fonts 部分。每个条目需有 family 键（字体家族名），fonts 键（字体文件及描述）。例如：
   fonts:
-   - family: Poppins
-     fonts:
-       - asset: assets/fonts/Poppins_Medium.ttf
-       - asset: assets/fonts/Poppins_Regular.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins_Medium.ttf
+        - asset: assets/fonts/Poppins_Regular.ttf
 
-   - family: PingFang
-     fonts:
-      #  - asset: assets/fonts/苹方黑体-中黑-简.ttf
-       - asset: assets/fonts/PingFang_Medium.otf
-         weight: 500
+    - family: PingFang
+      fonts:
+        #  - asset: assets/fonts/苹方黑体-中黑-简.ttf
+        - asset: assets/fonts/PingFang_Medium.otf
+          weight: 500
 
-   - family: PuHuiTi
-     fonts:
+    - family: PuHuiTi
+      fonts:
         - asset: assets/fonts\Puhuiti.ttf
-    
-   - family: iconfont
-     fonts:
+
+    - family: iconfont
+      fonts:
         - asset: assets/fonts/iconfont.ttf
           weight: 500
   # 有关从包依赖中使用字体的详情，见
