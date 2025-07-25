@@ -17,9 +17,9 @@ class Adapt {
 
   static bool padding_b_h = false; // 是否需要底部安全距离
 
- 
-  static initContext(BuildContext context){
+  static initContext(BuildContext context) {
     context.isDarkMode;
+
     /// 类似于 MediaQuery.of(context).size。
     final size = MediaQuery.sizeOf(context);
     // 屏幕宽度
@@ -27,20 +27,22 @@ class Adapt {
       _width = size.width;
       _height = size.height;
     }
+
     /// 底部安全距离
     if (_bottomPadding == 0) {
       _bottomPadding = MediaQuery.paddingOf(context).bottom;
       padding_b_h = true;
     }
+
     /// 顶部安全距离
     if (_topPadding == 0) {
       _topPadding = MediaQuery.paddingOf(context).top;
     }
+
     /// 设备像素比
     if (_devicePixelRatio == 0) {
       _devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
     }
-    
   }
 
   /// 初始化屏幕宽高比
@@ -74,7 +76,6 @@ class Adapt {
     return _topPadding;
   }
 
-  
   static double contentHeight() {
     return screenH() - topPadding() - bottomPadding();
   }
@@ -82,6 +83,4 @@ class Adapt {
   static double devicePixelRatio() {
     return _devicePixelRatio;
   }
-  
-  
 }

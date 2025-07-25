@@ -1,28 +1,30 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
+# 此文件配置分析器，用于静态分析Dart代码以
+# 检查错误、警告和代码规范。
 #
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
+# 分析器识别的问题会在支持Dart的IDE的UI中显示
+# （https://dart.dev/tools#ides-and-editors）。分析器也可以
+# 通过运行`flutter analyze`命令行调用。
 
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
+# 以下行激活了一组推荐的代码规范，适用于Flutter应用、
+# 包和插件，旨在鼓励良好的编码实践。
+analyzer:
+  errors:
+    avoid_print: ignore
+    non_constant_identifier_names: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
+  # 应用于此项目的代码规范可以在
+  # 下面的部分中自定义，以禁用上面包含的
+  # `package:flutter_lints/flutter.yaml`中的规则或启用其他规则。
+  # 所有可用的代码规范及其文档发布在https://dart.dev/lints。
   #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
+  # 除了在下面的部分中为整个项目禁用代码规范外，
+  # 还可以使用`// ignore: name_of_lint`和
+  # `// ignore_for_file: name_of_lint`语法在产生
+  # 代码规范的单行代码或特定dart文件中禁用它。
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
-# Additional information about this file can be found at
+    # avoid_print: false  # 取消注释以禁用`avoid_print`规则
+    # prefer_single_quotes: true  # 取消注释以启用`prefer_single_quotes`规则
+# 关于此文件的更多信息可以在以下网址找到
 # https://dart.dev/guides/language/analysis-options

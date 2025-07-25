@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wyy_flutter/config/themes/app_themes.dart';
 import 'package:wyy_flutter/core/utils/adapt.dart';
 import 'package:wyy_flutter/core/utils/image_utils.dart';

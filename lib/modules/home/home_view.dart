@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:wyy_flutter/app/routes/app_route_observer.dart';
-import 'package:wyy_flutter/core/utils/adapt.dart';
 import 'package:wyy_flutter/core/utils/common_util.dart';
+import 'package:wyy_flutter/modules/dynamic/dynamic_page.dart';
+import 'package:wyy_flutter/modules/found/found_page.dart';
 import 'package:wyy_flutter/modules/home/widgets/home_bottom.dart';
+import 'package:wyy_flutter/modules/mine/mine_page.dart';
+import 'package:wyy_flutter/modules/recommend/recommend_page.dart';
+import 'package:wyy_flutter/modules/village/village_page.dart';
+import 'package:wyy_flutter/shared/widgets/keep_alive_widget.dart';
 import './home_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 加入 KeepALive 组件
 class HomeView extends StatefulWidget {
@@ -73,28 +77,19 @@ class _HomeViewState extends State<HomeView>
             // Stack 相当于一个容器，可以包含多个子组件，子组件可以重叠，相当于 css中的 position: relative;
             children: [
               // Positioned.fill 相当于 css 中的 position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-              Positioned.fill(child: Container(color: Colors.red)),
-              Positioned(
-                top: 0,
-                child: Container(
-                  width: Adapt.screenW(),
-                  height: Adapt.px(44),
-                  margin: EdgeInsets.only(top: Adapt.topPadding()),
-                  color: Colors.amber,
-                  child: Row(
-                    children: [
-                      Text(
-                        '左侧内容',
-                        style: TextStyle(color: Colors.white, fontSize: 16.sp),
-                      ),
-                      // 撑开
-                      Expanded(child: Container()),
-                      Text(
-                        '右侧内容',
-                        style: TextStyle(color: Colors.white, fontSize: 16.sp),
-                      ),
-                    ],
-                  ),
+              Positioned.fill(
+                child: PageView(
+                  physics:
+                      const NeverScrollableScrollPhysics(), // 禁止滑动 physics 是滚动行为
+                  scrollDirection: Axis.horizontal, // 水平方向滑动 默认
+                  controller: controller.pageController,
+                  children: [
+                    RecommendPage(), // 推荐
+                    KeepAliveWidget(child: FoundPage()), // 发现
+                    VillagePage(), // 漫游
+                    KeepAliveWidget(child: DynamicPage()), // 动态
+                    MinePage(), // 我的
+                  ],
                 ),
               ),
             ],

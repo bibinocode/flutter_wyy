@@ -52,6 +52,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   # dio请求缓存拦截器
   dio_cache_interceptor: ^4.0.3
+  cookie_jar: ^4.0.8
 
 dev_dependencies:
   flutter_test:
