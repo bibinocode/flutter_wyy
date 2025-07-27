@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:wyy_flutter/core/http/http.dart';
 
-class HttpUtils {
+class HttpUtil {
   static late Http _http;
 
   static Future<void> init({
-    required String baseUrl,
+    String baseUrl = 'http://localhost:3000/api/',
     int? connectTimeout,
     int? receiveTimeout,
     List<Interceptor>? interceptors,
@@ -21,19 +21,29 @@ class HttpUtils {
     _http = Http();
   }
 
+  /// 单例模式
+  static HttpUtil? _instance;
+  static HttpUtil get instance => _instance ??= HttpUtil._();
+  HttpUtil._();
+
   static void setHeaders(Map<String, dynamic> map) {
     _http.setHeaders(map);
   }
 
   static Future get(
     String path, {
-    Map<String, dynamic>? params,
+    Map<String, dynamic>? queryParameters,
     Options? options,
     bool refresh = false,
   }) async {
+    // 确保所有请求都带上withCredentials
+    options ??= Options();
+    options.extra ??= {};
+    options.extra!['withCredentials'] = true;
+
     return await _http.get(
       path,
-      params: params,
+      params: queryParameters,
       options: options,
       refresh: refresh,
     );
@@ -41,32 +51,57 @@ class HttpUtils {
 
   static Future post(
     String path, {
-    data,
-    Map<String, dynamic>? params,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return await _http.post(path, data: data, params: params, options: options);
+    // 确保所有请求都带上withCredentials
+    options ??= Options();
+    options.extra ??= {};
+    options.extra!['withCredentials'] = true;
+
+    return await _http.post(
+      path,
+      data: data,
+      params: queryParameters,
+      options: options,
+    );
   }
 
   static Future put(
     String path, {
-    data,
-    Map<String, dynamic>? params,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return await _http.put(path, data: data, params: params, options: options);
+    // 确保所有请求都带上withCredentials
+    options ??= Options();
+    options.extra ??= {};
+    options.extra!['withCredentials'] = true;
+
+    return await _http.put(
+      path,
+      data: data,
+      params: queryParameters,
+      options: options,
+    );
   }
 
   static Future delete(
     String path, {
-    data,
-    Map<String, dynamic>? params,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    // 确保所有请求都带上withCredentials
+    options ??= Options();
+    options.extra ??= {};
+    options.extra!['withCredentials'] = true;
+
     return await _http.delete(
       path,
       data: data,
-      params: params,
+      params: queryParameters,
       options: options,
     );
   }

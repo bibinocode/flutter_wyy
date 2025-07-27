@@ -25,9 +25,9 @@ class MainApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false, // 隐藏调试模式
           defaultTransition: Transition.rightToLeft, // 页面切换动画
-          title: "App 应用标题",
+          title: "网抑云音乐",
           color: Colors.transparent, // 设置应用主题颜色
-          initialRoute: AppRoutes.SPLASH,
+          initialRoute: AppRoutes.LOGIN,
           initialBinding: BindingsBuilder(() {}), // 初始化全局控制器
           getPages: Routes.getPages, // 路由配置
           navigatorObservers: [

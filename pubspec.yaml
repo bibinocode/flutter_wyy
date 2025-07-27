@@ -1,5 +1,5 @@
 name: wyy_flutter # 项目包名，导包时使用
-description: "A new Flutter project."
+description: "网抑云音乐"
 # 以下这行可以防止该包被意外发布到 pub.dev（使用 `flutter pub publish`）。对于私有包推荐这样做。
 publish_to: "none" # 如果你希望发布到 pub.dev，请移除此行
 # 下面定义了应用的版本号和构建号。
@@ -53,6 +53,10 @@ dependencies:
   # dio请求缓存拦截器
   dio_cache_interceptor: ^4.0.3
   cookie_jar: ^4.0.8
+  # 刷新库
+  easy_refresh: ^3.4.0
+  # 日志库
+  logger: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +70,10 @@ dev_dependencies:
   json_serializable: ^6.9.5
   # 构建工具 https://pub.dev/packages/build_runner
   build_runner: ^2.5.4
+  # 网络请求通知栏拦截器
+  # 文档 https://jhomlala.github.io/alice/#/README
+  alice: ^1.0.0-dev.12
+  alice_dio: ^1.0.6
 
 # 有关本文件 Dart 通用部分的信息，见：
 # https://dart.dev/tools/pub/pubspec

@@ -4,6 +4,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:wyy_flutter/core/http/alice_interceptor.dart';
 import 'package:wyy_flutter/core/http/error_interceptor.dart';
 
 /// 封装 dio
@@ -83,6 +84,9 @@ class Http {
       );
     }
 
+    // 添加 alice 拦截器
+    _dio.interceptors.add(AliceInterceptor());
+
     // 错误处理
     _dio.interceptors.add(ErrorInterceptor());
 
@@ -113,7 +117,7 @@ class Http {
       receiveTimeout: Duration(milliseconds: receiveTimeout ?? _receiveTimeout),
       contentType: 'application/json;charset=utf-8',
       // 请求头
-      headers: {},
+      headers: {'withCredentials': true},
     );
 
     if (interceptors != null && interceptors.isNotEmpty) {

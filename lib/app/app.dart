@@ -1,7 +1,11 @@
+import 'package:alice/alice.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wyy_flutter/core/utils/storage_util.dart';
 
@@ -9,6 +13,9 @@ class Application {
   /// 主题 - 使用响应式变量 Td 组件库的主题
   /// @see https://tdesign.tencent.com/flutter/getting-started
   static final Rx<TDThemeData> themeData = TDThemeData.defaultData().obs;
+
+  /// Alice 网络请求调试工具
+  static late Alice alice;
 
   /// 页面初始化
   static Future<void> init() async {
@@ -19,6 +26,9 @@ class Application {
     setSystemUIOverlayStyle();
     // 初始化全局存储
     await StorageUtil.init();
+
+    /// 仅在调试模式下初始化 Alice
+    initAlice();
 
     // 通知更新 返回一个已经完成的 Future
     return Future.value();
@@ -57,5 +67,14 @@ class Application {
       SystemChrome.setSystemUIOverlayStyle(dark);
     }
     // 设置导航栏颜色
+  }
+
+  /// 初始化 Alice
+  static initAlice() {
+    // 仅在调试模式下初始化 Alice
+    if (kDebugMode) {
+      alice = Alice();
+      alice.setNavigatorKey(Get.key); // 设置导航键
+    }
   }
 }
