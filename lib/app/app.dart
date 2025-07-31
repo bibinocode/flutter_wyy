@@ -7,6 +7,7 @@ import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/utils.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:wyy_flutter/core/http/http_util.dart';
 import 'package:wyy_flutter/core/utils/storage_util.dart';
 
 class Application {
@@ -29,6 +30,9 @@ class Application {
 
     /// 仅在调试模式下初始化 Alice
     initAlice();
+
+    /// 初始化 Http 客户端
+    await HttpUtil.init(baseUrl: 'http://localhost:3000');
 
     // 通知更新 返回一个已经完成的 Future
     return Future.value();

@@ -7,7 +7,7 @@ class HttpUtil {
   static late Http _http;
 
   static Future<void> init({
-    String baseUrl = 'http://localhost:3000/api/',
+    required String baseUrl,
     int? connectTimeout,
     int? receiveTimeout,
     List<Interceptor>? interceptors,

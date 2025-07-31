@@ -4,6 +4,13 @@ import 'package:logger/logger.dart';
 class LogUtil {
   static final Logger _logger = Logger(
     level: kReleaseMode ? Level.off : Level.trace, // 生产环境关闭日志，开发环境开启日志
+    printer: PrettyPrinter(
+      methodCount: 0,
+      errorMethodCount: 5,
+      lineLength: 80,
+      colors: true, // 确保启用颜色
+      printEmojis: true,
+    ),
   );
 
   /// debug 日志 打印出来是白色

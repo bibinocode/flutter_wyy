@@ -63,6 +63,11 @@ class Http {
     int? receiveTimeout,
     List<Interceptor>? interceptors,
   }) async {
+    Http.baseUrl = baseUrl;
+
+    // 初始化 dio 实例 - 这行代码缺失，导致了错误
+    _dio = Dio();
+
     // DEUBG 模式开启日志美化
     if (bool.fromEnvironment('DEBUG')) {
       _dio.interceptors.add(
@@ -109,7 +114,7 @@ class Http {
 
     await _initializeCookieManager();
 
-    _dio.options.copyWith(
+    _dio.options = BaseOptions(
       baseUrl: baseUrl,
       // 连接超时时间 milliseconds 毫秒
       connectTimeout: Duration(milliseconds: connectTimeout ?? _connectTimeout),

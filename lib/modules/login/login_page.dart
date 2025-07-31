@@ -68,15 +68,47 @@ class LoginPage extends GetView<LoginController> {
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.easeOutCubic,
                                 margin: EdgeInsets.only(
-                                  top: controller.isKeyboardVisible.value
-                                      ? -100.h
+                                  top:
+                                      controller.isKeyboardVisible.value ||
+                                          controller.isShowCodeInput.value
+                                      ? 0.h
                                       : 80.h,
                                 ),
+                                // 添加 transform 属性实现缩放效果
+                                transform: Matrix4.identity()
+                                  ..scale(
+                                    controller.isShowCodeInput.value
+                                        ? 0.4
+                                        : 1.0, // 验证码输入时缩小到40%
+                                    controller.isShowCodeInput.value
+                                        ? 0.4
+                                        : 1.0,
+                                  ),
+                                transformAlignment:
+                                    Alignment.center, // 确保缩放中心点正确
                                 child: _buildLogo(),
                               ),
                             ),
                             SizedBox(height: 200.h, width: double.infinity),
-                            _buildPhoneLogin(),
+                            // _buildPhoneLogin(),
+                            Obx(
+                              () => controller.isShowCodeInput.value
+                                  ? AnimatedSlide(
+                                      offset: Offset(
+                                        0,
+                                        1 - controller.codeInputAnimation.value,
+                                      ),
+                                      duration: Duration(milliseconds: 300),
+                                      curve: Curves.easeOutCubic,
+                                      child: AnimatedOpacity(
+                                        opacity:
+                                            controller.codeInputAnimation.value,
+                                        duration: Duration(milliseconds: 300),
+                                        child: _buildCodeInput(),
+                                      ),
+                                    )
+                                  : _buildPhoneLogin(),
+                            ),
                           ],
                         ),
                       ),
@@ -278,6 +310,110 @@ class LoginPage extends GetView<LoginController> {
         ),
         SizedBox(height: 10.h),
         _buildPrivacyAgreement(),
+      ],
+    );
+  }
+
+  /// 渲染验证码输入
+  Widget _buildCodeInput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "已发送至${controller.phoneController.text}",
+              style: TextStyle(fontSize: 12.sp, color: Color(0xFF747986)),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.snackbar("", "不提供这个功能！");
+              },
+              child: Text(
+                "无法接收短信?",
+                style: TextStyle(fontSize: 12.sp, color: Color(0xFF5975aa)),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 30.h),
+        GestureDetector(
+          onTap: () {
+            FocusScope.of(Get.context!).requestFocus(FocusNode());
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F4F5),
+              borderRadius: BorderRadius.circular(12.w),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 8,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller.codeController,
+                    keyboardType: TextInputType.phone,
+                    style: TextStyle(fontSize: 16.sp),
+                    decoration: InputDecoration(
+                      hintText: "请输入验证码", // 提示文本
+                      border: InputBorder.none, // 边框
+                      isCollapsed: true, // 是否合并边框
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+                    ),
+                    onChanged: (v) {
+                      controller.codeController.text = v;
+                      // 设置光标位置
+                      controller.codeController.selection =
+                          TextSelection.fromPosition(
+                            TextPosition(offset: v.length),
+                          );
+                    },
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Container(width: 1, height: 15.h, color: Color(0xFFE4E7E9)),
+                SizedBox(width: 12.w),
+                // 倒计时
+                Obx(
+                  () => Text(
+                    controller.isShowCodeCountdown.value
+                        ? "${controller.codeCountdown.value}s"
+                        : "获取验证码",
+                    style: TextStyle(fontSize: 16.sp, color: Color(0xFF5975aa)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 30.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // 圆的返回按钮图标
+            GestureDetector(
+              onTap: () {
+                controller.isShowCodeInput.value = false;
+              },
+              child: CircleAvatar(
+                backgroundColor: Color(0xFFF9F9F9),
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 18.w,
+                  color: Color(0xFF757a8b),
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

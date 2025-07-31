@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:wyy_flutter/core/utils/log_util.dart';
+import 'package:wyy_flutter/shared/api/login_service.dart';
 
 // 登录类型枚举
 enum LoginType {
@@ -17,6 +19,9 @@ class LoginController extends GetxController
 
   // 手机号输入完成，点击验证码登录 然后开始显示验证码输入框
   final isShowCodeInput = false.obs;
+
+  // 控制验证码输入框的动画
+  final codeInputAnimation = Rx<double>(0.0);
 
   // 手机号文本输入框控制器
   final phoneController = TextEditingController();
@@ -48,13 +53,75 @@ class LoginController extends GetxController
   final isPrivacyAgreement = false.obs;
 
   // 检测验证码登录逻辑
-  void checkCodeLogin() {
+  void checkCodeLogin() async {
     // 为输入手机号，按钮进行抖动动画
     if (isPhoneEmpty.value) {
       Get.snackbar("提示", "请输入手机号");
       startShakeAnimation();
       return;
     }
+
+    // 验证是否同意隐私协议
+    if (!isPrivacyAgreement.value) {
+      Get.snackbar("提示", "请先同意隐私协议");
+      return;
+    }
+
+    // 发送验证码
+    final response = await LoginService.instance.sendVerificationCode(
+      phoneController.text,
+    );
+
+    LogUtil.i(response);
+
+    // 进入验证码输入显示
+    if (response.code == 200 && response.data == true) {
+      // 先设置状态，然后开始动画
+      isShowCodeInput.value = true;
+      // 触发验证码输入框的动画
+      _startCodeInputAnimation();
+      Get.snackbar("", "验证码已发送");
+      startCountdown();
+    }
+  }
+
+  // 开始验证码输入框动画
+  void _startCodeInputAnimation() {
+    // 从0到1的动画过渡
+    Timer(Duration(milliseconds: 50), () {
+      codeInputAnimation.value = 1.0;
+    });
+  }
+
+  /// 重新获取验证码
+  void resetCode() async {
+    codeController.clear();
+    isShowCodeCountdown.value = false;
+    // 发送验证码
+    final response = await LoginService.instance.sendVerificationCode(
+      phoneController.text,
+    );
+
+    LogUtil.i(response);
+
+    if (response.code == 200 && response.data == true) {
+      Get.snackbar("", "验证码已发送");
+      startCountdown();
+    }
+  }
+
+  // 开始倒计时
+  void startCountdown() {
+    codeCountdown.value = 60;
+    isShowCodeCountdown.value = true;
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (codeCountdown.value <= 0) {
+        timer.cancel();
+        isShowCodeCountdown.value = false;
+      } else {
+        codeCountdown.value--;
+      }
+    });
   }
 
   // 开始晃动动画
